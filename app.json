@@ -1,0 +1,77 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/search/search",
+    "pages/auth/login/login",
+    "pages/auth/accountLogin/accountLogin",
+    "pages/auth/register/register",
+    "pages/auth/reset/reset",
+    "pages/addAddress/addAddress",
+    "pages/ucenter/address/address",
+    "pages/ucenter/addressAdd/addressAdd",
+    "pages/payResult/payResult",
+    "pages/applyRefund/applyRefund",
+    "pages/test/test",
+    "pages/orderDetail/orderDetail",
+    "pages/refundDetail/refundDetail",
+    "pages/order/order",
+    "pages/orderMap/orderMap",
+    "pages/detail/detail",
+    "pages/editAddress/editAddress",
+    "pages/address/address",
+    "pages/submitOrder/submitOrder",
+    "pages/evaluate/evaluate",
+    "pages/allEvaluate/allEvaluate",
+    "pages/myPackage/myPackage",
+    "pages/cart/cart",
+    "pages/user/user"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "外卖",
+    "enablePullDownRefresh": true,
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "backgroundColor": "#fafafa",
+    "borderStyle": "white",
+    "selectedColor": "#AB956D",
+    "color": "#666",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "img/icon1.png",
+        "selectedIconPath": "img/icon1-active.png",
+        "text": "点餐"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "iconPath": "img/icon2.png",
+        "selectedIconPath": "img/icon2-active.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "iconPath": "img/icon3.png",
+        "selectedIconPath": "img/icon3-active.png",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "img/icon4.png",
+        "selectedIconPath": "img/icon4-active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于计算外卖配送范围及运费"
+    }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx6885acbedba59c14"
+  ]
+}

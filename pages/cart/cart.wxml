@@ -1,0 +1,60 @@
+<!--buycar.wxml--> 
+<view class="container" wx:if="{{!hasLogin}}">
+  <view class="no-login">
+    <view class="c">
+      <image src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/noCart-a8fe3f12e5.png" />
+      <text>还没有登录</text>
+      <button style="background-color:#A9A9A9" bindtap="goLogin">去登录</button>
+    </view>
+  </view>
+</view>
+<view class="container page2" wx:else>  
+  <view class="settlement">
+    <view class="tlement">
+      <view class="orderLeft">
+        <!--<view class="buycar_icon">
+          <view class="iconfont icon-buycar" bindtap="checkedAll"></view>
+          <view class="buycar_num">{{cartTotal.checkedGoodsCount}}</view>
+        </view>-->
+        <view class="totalMoney">
+          <view class="price">合计：{{!isEditCart ? '￥'+cartTotal.checkedGoodsAmount : ''}}</view>
+          <view class="otherMoney"></view>  
+        </view>
+      </view>      
+      <view class="toPay" bindtap="checkoutOrder">
+        <text>去结算</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="no-cart" wx:if="{{cartGoods.length <= 0}}">
+    <view class="c">
+      <image src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/noCart-a8fe3f12e5.png" />
+      <text>去添加点什么吧</text>
+    </view>
+  </view>
+  <view class="pro" wx:for="{{cartGoods}}" wx:key="id" wx:for-index="index">
+    <!--<i class="{{item.checked ? 'iconfont .icon-true active':'iconfont .icon-true'}}" data-item-index="{{index}}" bindtap="checkedItem"></i>-->
+    <image src="{{item.picUrl}}"></image>
+    <view class="message">
+      <view>
+        <text>{{item.goodsName}}</text>
+        <text class="orderNum price">¥{{item.price}}</text>        
+      </view>
+      <view class="specification">
+        <block wx:for="{{item.specificationList}}" wx:key="id" wx:for-item="specification">
+          {{specification}}
+        </block>
+      </view>
+      <view>
+        <view class="classname">
+          <text class="numBorder" data-item-index="{{index}}" bindtap="cutNumber">-</text>
+          <text class="numMiddle">{{item.number}}</text>
+          <text class="numBorder" data-item-index="{{index}}" bindtap="addNumber">+</text>
+        </view>
+        <text class="iconfont .icon-del" bindtap="deleteCart" data-item-index="{{index}}"></text>
+      </view> 
+    </view>   
+  </view>
+  <view class="padding"></view>
+</view>

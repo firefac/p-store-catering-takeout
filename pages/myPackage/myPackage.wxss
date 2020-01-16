@@ -1,0 +1,49 @@
+page {
+  background: #f2f2f2;
+}
+.myPackage {
+  padding: 0 40rpx;
+}
+.packageList {
+  position: relative;
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  background: white;  
+}
+.top,.bottom {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: #f2f2f2;
+}
+.top {
+  top: -20rpx;
+  left: 190rpx;
+}
+.bottom {
+  top: 222rpx;
+  left: 190rpx;
+}
+.left {
+  width: 32%;
+  text-align: center;
+  padding: 40rpx 10rpx;
+  border-right: 4rpx #f2f2f2 dashed;
+}
+.price {
+  font-size: 60rpx;
+}
+.right {
+  width: 68%;
+  line-height: 50rpx;
+  padding: 20rpx 20rpx 20rpx 40rpx;
+}
+.time {
+  font-size: 28rpx;
+}
+.phone {
+  font-size: 28rpx;
+  color: #999;
+}

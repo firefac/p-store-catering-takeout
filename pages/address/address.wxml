@@ -1,0 +1,32 @@
+<view wx:if="{{!noAddress}}">
+  <view class="addressList" wx:for="{{arr}}">
+    <view class="listLeft">
+      <view class="name">
+        <view class="phone">{{item.address}}</view>
+        <view class="namePhone">
+          <text>{{item.name}}</text> 
+          <text>{{item.phone}}</text>
+        </view>        
+      </view>
+    </view>
+    <view class="Edit">
+      <text data-id="{{index}}" bindtap="chooseAddress"><text class="{{num==index?'quan iconfont icon-true':'quan'}}"></text> 设为默认</text>
+      <text class="iconfont icon-edit" data-id="{{index}}" bindtap="toEdit"> 编辑</text>
+      <text class="iconfont icon-del" data-id="{{index}}" bindtap="delAddress"> 删除</text>
+    </view>
+  </view>
+
+  <view class="addAddress" bindtap="addAddress">
+    添加收货地址
+  </view>
+</view>  
+
+<view class="null" wx:if="{{noAddress}}">
+  <view class="text">
+    <image src="../../img/noaddress.png"></image>  
+    <view class="nothing">好难过，这里什么也没有赶紧去添加地址吧</view>
+    <view class="toAdd" bindtap="addAddress">添加地址</view>
+  </view>
+</view>  
+
+

@@ -1,0 +1,38 @@
+<view class="Block">
+  <view class="textarea">
+    <textarea placeholder="对本店的口味还满意吗？一起来说说吧！" />
+  </view>
+  <view class="Pic">
+    <view class="PicBlock" wx:if="{{imgPath2!=''}}">
+      <image src="{{imgPath2}}"></image>
+      <view class="del" data-id="0" bindtap="del">
+        <text class="iconfont icon-del"></text>
+      </view>
+    </view> 
+    <view class="PicBlock" wx:if="{{imgPath3!=''}}">
+      <image src="{{imgPath3}}"></image>
+      <view class="del" data-id="1" bindtap="del">
+        <text class="iconfont icon-del"></text>
+      </view>
+    </view>     
+    <view class="PicBlock" bindtap="choosePic">
+      <image src="{{imgPath}}"></image>
+      <view class="del" data-id="2" wx:if="{{imgPath!='../../img/pic.png'}}" catchtap="del">
+        <text class="iconfont icon-del"></text>
+      </view>
+    </view> 
+    <view class="small">(最多晒3张图片)</view>
+  </view>
+  <view class="food">
+    黄焖鸡米饭+南洋鸡肉咖喱饭+原蛊炖汤……
+  </view>
+</view>
+
+<view class="bottom">
+  <view class="{{choose?'iconfont icon-true active':'iconfont icon-true'}}" bindtap="choose">
+    <text> 匿名晒单</text>
+  </view>
+  <view class="submit" bindtap="toSubmit">
+    提交
+  </view>
+</view>

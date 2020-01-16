@@ -1,0 +1,15 @@
+<view class="myPackage">
+  <view class="packageList" wx:for="{{arr}}">
+    <view class="top"></view>
+    <view class="bottom"></view>
+    <view class="left">
+      <view>¥<text class="price">{{item.price1}}</text></view>
+      <view>满{{item.price2}}可用</view>
+    </view>
+    <view class="right">
+      <view>{{item.title}}</view>
+      <view class="time">有效期至{{item.time}}</view>
+      <view class="phone">{{item.phone}}</view>
+    </view>
+  </view>
+</view>

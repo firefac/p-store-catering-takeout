@@ -1,0 +1,83 @@
+<view class="container">
+  <view class="address-box">
+    <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.id > 0}}">
+      <view class="l">
+        <text class="name">{{checkedAddress.name}}</text>
+        <text class="default" wx:if="{{checkedAddress.isDefault}}">默认</text>
+      </view>
+      <view class="m">
+        <text class="mobile">{{checkedAddress.tel}}</text>
+        <text class="address">{{checkedAddress.addressDetail}}</text>
+      </view>
+      <view class="r">
+        <image src="/static/images/address_right.png"></image>
+      </view>
+    </view>
+    <view class="address-item address-empty" bindtap="selectAddress" wx:else>
+      <view class="m">
+        还没有收货地址，去添加
+      </view>
+      <view class="r">
+        <image src="/static/images/address_right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="proMessage">
+  <view class="list" wx:for="{{checkedGoodsList}}" wx:key="id">
+    <view class="listLeft">
+      <view class="foodPic">
+        <image mode="widthFix" src="{{item.picUrl}}"></image>
+      </view>
+      <view class="message">
+        <text>{{item.goodsName}}</text>
+        <view class="specification">
+          <block wx:for="{{item.specificationList}}" wx:key="id" wx:for-item="specification">
+            {{specification}}
+          </block>
+        </view>
+        <!--<text>{{item.specificationList}}</text>-->
+        <text class="price">¥{{item.price}} 
+          <!--<text class="oldPrice">¥14.43</text>-->
+        </text>
+      </view>
+    </view>
+    <view class="listRight">
+      X{{item.number}}
+    </view>
+  </view>
+  <view class="orherPrice">
+    <text>餐盒费</text>
+    <text>¥1</text>
+  </view>
+  <view class="smallBorder">
+    <view class="orherPrice">
+      <text>配送费</text>
+      <text>¥{{freightPrice}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="orderType">
+  <text>支付方式</text>
+  <text>在线支付</text>
+</view>
+
+<view class="other">
+  <view>
+    <text>订单备注</text>
+    <textarea placeholder="请输入您的要求" bindinput="bindMessageInput" value="{{message}}"/>
+  </view>
+</view>
+
+<cover-view class="submitOrder">
+  <cover-view style="display: flex;">
+    <cover-view class="discount">实付 </cover-view>
+    <cover-view class="price">¥{{actualPrice}}</cover-view>
+  </cover-view>
+  <cover-view class="submit" bindtap="submitOrder">提交订单</cover-view>
+</cover-view>
+<view class="padding">
+
+</view>

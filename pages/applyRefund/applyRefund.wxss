@@ -1,0 +1,140 @@
+page {
+  background: #f2f2f2;
+}
+.title {
+  padding: 20rpx 0;
+  font-weight: bold;
+}
+.quan {
+  display: inline-block;
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx #ddd solid;
+  border-radius: 50%;
+  line-height: 40rpx;
+}
+.applyBlock {
+  background: white;
+  padding: 0 40rpx;
+}
+.icon-true {
+  color: #FFCC33;
+  font-size: 40rpx;
+}
+.list {
+  border-top: 2rpx #ddd solid;
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx 0;
+}
+.list image{
+  width: 140rpx;
+  height: 140rpx;
+  margin: 0 20rpx 0 40rpx;
+}
+.listLeft {
+  display: flex;
+  align-items: center;
+}
+.message text {
+  display: block;
+  line-height: 80rpx;
+}
+.listRight {
+  margin-top: 20rpx;
+  color: #999;
+}
+.applyReason {
+  color: #333;
+  background: white;
+  padding-bottom: 100rpx; 
+}
+.reason,.reason2,.reason3 {  
+  padding: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;  
+}
+.reason2{
+  margin-top: 0;
+  border-top: 2rpx #ddd solid;
+  border-bottom: 2rpx #ddd solid;
+}
+.reason3 {
+  margin-top: 0;
+}
+.reason .iconfont {
+  color: #999;
+}
+.Pic {
+  padding: 0 40rpx;    
+}
+.PicBlock {
+  position: relative;
+  display: inline-block;
+  margin-right: 20rpx;
+  width: 160rpx;
+  height: 160rpx;
+  background: #f2f2f2; 
+}
+.del {
+  position: absolute;
+  background: rgba(0,0,0,.2);
+  height: 40rpx;
+  line-height: 40rpx;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  font-size: 28rpx;
+  color: #fff;
+}
+.Pic image {
+  width: 100%;
+  height: 100%;
+}
+.small {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 20rpx;
+}
+.userReason {
+  background: #f2f2f2;
+  border-radius: 20rpx;
+  height: 180rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  width: 90%;
+  margin: 40rpx 0 80rpx 5%;
+}
+.submit {
+  padding: 30rpx 0;
+  text-align: center;
+  border-radius: 12rpx;
+  background: #FFCC33;
+  width: 90%;
+  margin-left: 5%;
+}
+.chooseReason {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.2);
+  position: fixed;
+  top: 0;
+  left: 0;  
+}
+.chooseReason>view {
+  width: 90%;
+  margin-left: 5%;
+  background: white;
+  margin-top: 20%;
+  border-radius: 12rpx;
+}
+.reasonList {
+  display: flex;
+  padding: 30rpx 40rpx;
+  border-bottom: 2rpx #ddd solid;
+}
+.reasonList text {
+  margin-left: 20rpx;
+}

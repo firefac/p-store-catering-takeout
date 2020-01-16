@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "点餐",
+  "usingComponents": {
+    "van-sidebar": "../../lib/sidebar/index",
+    "van-sidebar-item": "../../lib/sidebar-item/index",
+    "van-tab": "../../lib/tab/index",
+    "van-tabs": "../../lib/tabs/index",
+    "van-stepper": "../../lib/stepper/index"
+  }
+}

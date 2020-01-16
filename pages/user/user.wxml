@@ -1,0 +1,25 @@
+<!--me.wxml  -->
+<view class="container">
+  <view class="profile-info" bindtap="goLogin">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+    <view class="info">
+      <text class="name">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+
+  <view class='separate'></view>
+
+ <view style="margin-top: 30rpx;"/>
+
+  <van-cell  is-link icon="location-o" title="地址管理" link-type="navigateTo" url="/pages/ucenter/address/address" />
+  <!--<van-cell  is-link icon="coupon-o" title="我的红包" link-type="navigateTo" url="/pages/myPackage/myPackage" />-->
+  <van-cell  is-link icon="service-o" title="联系客服" link-type="navigateTo"  >
+      <button style="opacity:0;position:absolute;; width:100%;height:100%;left:0px;" open-type='contact'></button> 
+  </van-cell>
+
+  <view class="calling" bindtap="calling">
+    订餐电话：<text class="phoneColor">{{storeInfo.mobile}}</text>
+  </view>
+
+  <view class="logout" wx:if="{{hasLogin}}" bindtap="exitLogin">退出登录</view>
+</view>

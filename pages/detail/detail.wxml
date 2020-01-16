@@ -1,0 +1,116 @@
+<view class="detailPic">
+  <image src="../../img/food2.jpg"></image>
+</view>
+<view class="messageBlock">
+  <view class="Message">
+    <view class="detailMessage">
+      <text class="name">黄焖鸡米饭 </text>
+      <text class="monthsell">月售330</text>
+      <text class="price">¥12.43 <text>¥14.43</text></text>
+    </view>
+    <view class="addReduce">
+      <text class="iconfont icon-reduce" bindtap="reduce"></text>
+      <text class="orderNum"> {{num}} </text>
+      <text class="iconfont icon-add" bindtap="add"></text>
+    </view>
+  </view>
+  <view class="otherMessage">
+    <view class="S_M">
+      商品信息
+    </view>
+    <view>
+      配米饭一份哦
+    </view>
+  </view>
+</view>
+
+<!--评价  -->
+<view class="saySomething">
+  <view class="sayTitle">
+    <text>外卖评价（好评率100%）</text>
+    <text class="iconfont .icon-more" bindtap="toAllEvaluate">共3条评价</text>       
+  </view>  
+  <view class="sayList">
+    <view class="sayLeft">
+      <image src="../../img/me.jpg"></image>
+      <view class="Name">
+        <view class="name">张三</view>
+        <view>很经典的味道，很喜欢很经典的味道，很喜欢很经典的味道，很喜欢</view>
+      </view>      
+    </view>
+    <view class="time">
+      2017/06/05
+    </view>
+  </view>
+  <view class="sayList">
+    <view class="sayLeft">
+      <image src="../../img/me.jpg"></image>
+      <view class="Name">
+        <view class="name">张三</view>
+        <view>很经典的味道，很喜欢</view>
+      </view>      
+    </view>
+    <view class="time">
+      2017/06/05
+    </view>
+  </view>
+  <view class="sayList">
+    <view class="sayLeft">
+      <image src="../../img/me.jpg"></image>
+      <view class="Name">
+        <view class="name">张三</view>
+        <view>很经典的味道，很喜欢</view>
+      </view>      
+    </view>
+    <view class="time">
+      2017/06/05
+    </view>
+  </view>
+</view>
+
+<!--加入购物车，立即购买  -->
+<view class="addBuy">
+  <view class="settlement">
+    <view class="tlement">
+      <view class="orderLeft">
+        <view class="buycar_icon">
+          <view class="iconfont icon-buycar"></view>
+          <view class="buycar_num">{{buycar_num}}</view>
+        </view>
+        <view class="totalMoney">
+          <view class="price">合计：{{totalMoney}}元</view>
+          <view class="otherMoney">还差5元起送</view>  
+        </view>
+      </view>      
+      <view class="toPay" bindtap="toSubmit">
+        <text>去结算</text>
+      </view>
+    </view>
+  </view> 
+  <!-- <view class="add" bindtap="open">加入购物车</view>
+  <view class="buy" bindtap="buyNow">立即购买</view> -->
+</view>
+
+<view class="Block" wx:if="{{block}}">
+  <view class="total">
+    <view class="title">
+      <text>招牌手撕鸡饭套餐</text>
+      <text class="iconfont icon-close" bindtap="close"></text>
+    </view>
+    <view class="type">
+      口味
+    </view>
+    <view class="chooseType">
+      <view wx:for="{{arr}}" class="{{index==foodtype?'active':''}}" data-id="{{index}}" bindtap="resetNum">{{item.value}}</view>
+    </view>
+    <view class="num">数量</view>
+    <view class="add2">
+      <text class="iconfont icon-add" bindtap="add"></text>
+      <text class="chooseNum"> {{num}} </text>
+      <text class="iconfont icon-reduce" bindtap="reduce"></text>
+    </view>
+    <view class="ok" bindtap="submit">
+      确定
+    </view>
+  </view>
+</view>

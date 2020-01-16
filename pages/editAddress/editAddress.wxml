@@ -1,0 +1,21 @@
+<!-- <view class="page2">
+  <view class="header">
+  <view class="search-input">
+    <input placeholder="请输入收货地址" bindinput="input" placeholder-style="margin-top: 6rpx;font-size:28rpx;color:#999;"></input>
+    </view>
+    <view class="search-btn" bindtap="noChoose">返回</view>
+  </view>
+  <view class="result-container" hidden="{{hidden}}">
+  <scroll-view scroll-y="true"class="search-result-list" hidden="{{hidden}}">
+    <block wx:for="{{locationList}}" wx:key="" >
+      <view class="search-result" catchtap="back" data-key="{{item.title}}">{{item.title}}
+        <view class="search-result-desc" >{{item.address}}</view>
+      </view>
+    </block>
+    <view class="nothing" wx:if="{{nothing}}">
+      <view>抱歉，未找到您要的地点</view>
+      <view>请检查您的关键字是否正确。</view>
+    </view>
+  </scroll-view>
+  </view>
+</view> -->

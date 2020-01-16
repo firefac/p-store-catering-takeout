@@ -1,0 +1,109 @@
+<!--index.wxml-->
+<view class="container page1">
+  <view class="head" wx:if="{{!scrollDown}}">
+    <view class="profile-info" bindtap="goLogin">
+      <image class="avatar" src="{{storeInfo.logo}}"></image>
+      <view class="info">
+        <text class="name">{{storeInfo.name}}</text>
+        <text class="desc"> 商家配送 | 配送费{{storeInfo.deliveryFee}}元</text>
+      </view>
+    </view>
+    <swiper wx:if="{{announcements.length > 0}}" class="anouncement" autoplay="true" interval="3000" circular="true" duration="500" vertical="true">
+      <block wx:for="{{announcements}}" wx:key="id">
+        <swiper-item>
+          <view class="swiperList">
+            <text class="iconfont icon-news"></text>
+            <text> {{item.title}}</text>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <van-tabs sticky>
+    <van-tab title="点菜">
+      <view class="content-container">
+        <scroll-view class="classify-container" scroll-y="true" style='height:{{scrollHeight}}px'>
+          <view class="classify {{classifySeleted == ('classify' + classify.id) ? 'active':''}}" wx:for="{{categoryProductList}}" wx:for-item="classify" wx:key="id" data-id="{{'classify' + classify.id}}" bindtap="tapClassify">
+            <view class="name">{{classify.name}}</view>
+          </view>
+        </scroll-view>
+        <scroll-view class="goods-container" scroll-y="true" style='height:{{scrollHeight}}px' scroll-into-view="{{classifyViewed}}" bindscroll="onGoodsScroll">
+          <view wx:for="{{categoryProductList}}" wx:for-item="classify" wx:key="id" id="{{'classify' + classify.id}}">
+            <view class="title">{{classify.name}}</view>
+            <view class="goods" wx:for="{{classify.goodsInfos}}" wx:for-item="goods" wx:key="id">
+              <view class="menuList menuList2">
+                <image mode="widthFix" src="{{goods.picUrl}}"></image>
+                <view style="min-width: 65%;">
+                  <view class="P_message">
+                    <view>{{goods.name}}</view>
+                    <view class="P_small">{{goods.brief}}</view>
+                    <view class="P_small">月售{{goods.sold}}</view>
+                  </view>
+                  <view class="P_bottom">
+                    <view style="width:45%;text-align: left;">
+                      <text class="price">¥{{goods.retailPrice}} </text>
+                      <text class="line_t" wx:if="{{goods.counterPrice != null && goods.counterPrice > goods.retailPrice}}">¥{{goods.counterPrice}}</text> 
+                    </view>
+                    <view style="text-align:right;width:55%;">
+                      <text class="iconfont icon-reduce" data-goods="{{goods}}" bindtap="reduceDirect" wx:if="{{goods.specificationList===null || (goods.specificationList.length === 1 && goods.specificationList[0].valueList.length == 1)}}"></text>
+                      <text class="iconfont icon-reduce" data-goods="{{goods}}" bindtap="reduceSpeci" wx:else></text>
+                      <text> {{goods.num}} </text>
+                      <text class="iconfont icon-add" data-goods="{{goods}}" bindtap="addDirect"  wx:if="{{goods.specificationList===null || (goods.specificationList.length === 1 && goods.specificationList[0].valueList.length == 1)}}"></text>
+                      <text class="iconfont icon-add" data-goods="{{goods}}" bindtap="add"  wx:else></text>
+                    </view>
+                  </view> 
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </van-tab>
+    <van-tab title="商家">
+      <view class="S_top">
+        <view class="S_title">
+          商家信息
+        </view>
+        <view class="iconfont icon-map">{{storeInfo.address}}</view>
+        <view class="iconfont icon-time2">配送时间：{{storeInfo.deliveryStartTime}}-{{storeInfo.deliveryEndTime}}</view>
+        <view class="iconfont icon-car">商家提供配送服务</view>
+        <view class="iconfont icon-money">¥{{storeInfo.deliveryStartFee}}元起送｜配送费¥{{storeInfo.deliveryFee}}</view>
+      </view>
+      <!--<view class="S_top">
+        <view class="S_title">
+          店内活动
+        </view>
+        <view class="iconfont icon-zhekou">满22减17；满50减33（在线支付专享）</view>
+        <view class="iconfont icon-zhekou">折扣商品2.6折起（在线支付专享)</view>
+        <view class="iconfont icon-zhekou">部分商品第二份半价</view>
+      </view>-->
+    </van-tab>
+  </van-tabs>
+</view>
+
+<!--规格选择  -->
+<view class="Block" hidden="{{!openAttr}}">
+  <view class="total">
+    <view class="title">
+      <text>{{goods.name}}</text>
+      <view class="p">价格：￥{{checkedSpecPrice}}</view>
+      <text class="iconfont icon-close" bindtap="close"></text>
+    </view>
+    <block wx:for="{{specificationList}}" wx:for-item="specification" wx:key="id">
+      <view class="type">
+        {{specification.name}}
+      </view>
+      <view class="chooseType">
+        <view wx:for="{{specification.valueList}}" wx:key="id" class="{{item.checked ?'active2':''}}"  data-value-id="{{item.id}}" data-name="{{item.specification}}" bindtap="clickSkuValue">{{item.value}}</view>
+      </view>
+    </block>
+    <view class="type" style="display: flex">
+      <text >数量：</text>
+      <van-stepper value="{{ number }}" bind:change="onChangeNumber" />
+    </view>
+    <view class="ok" bindtap="submit">
+      确定
+    </view>
+  </view>
+</view>

@@ -1,0 +1,39 @@
+<view class="sayList">
+    <view class="sayLeft">
+      <image src="../../img/me.jpg"></image>
+      <view class="Name">
+        <view class="name">张三</view>
+        <view>很经典的味道，很喜欢很经典的味道，很喜欢很经典的味道，很喜欢</view>
+      </view>      
+    </view>
+    <view class="time">
+      2017/06/05
+    </view>
+  </view>
+  <view class="sayList">
+    <view class="sayLeft">
+      <image src="../../img/me.jpg"></image>
+      <view class="Name">
+        <view class="name">张三</view>
+        <view>很经典的味道，很喜欢</view>
+        <view class="Pic">
+          <image src="../../img/food.jpg"></image>
+        </view>
+      </view>      
+    </view>
+    <view class="time">
+      2017/06/05
+    </view>
+  </view>
+  <view class="sayList">
+    <view class="sayLeft">
+      <image src="../../img/me.jpg"></image>
+      <view class="Name">
+        <view class="name">张三</view>
+        <view>很经典的味道，很喜欢</view>
+      </view>      
+    </view>
+    <view class="time">
+      2017/06/05
+    </view>
+  </view>

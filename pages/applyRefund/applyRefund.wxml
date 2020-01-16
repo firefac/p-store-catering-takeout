@@ -1,0 +1,84 @@
+<view class="applyBlock">  
+  <view class="title">相关商品</view>
+  <view class="list" wx:for="{{arr}}" wx:key="">
+    <view class="listLeft"  data-id="{{item.id}}" bindtap="choose">      
+      <view class="foodPic">
+        <image src="{{item.img}}"></image>
+      </view>
+      <view class="message">
+        <text>{{item.name}}</text>
+        <text class="price">¥{{item.price}}</text>
+      </view>
+    </view>
+    <view class="listRight">
+      X{{item.num}}
+    </view>
+  </view>  
+</view>
+
+<view class="applyReason">
+  <view class="reason">
+    <text>退款原因</text>
+    <text class="iconfont icon-down"  bindtap="toShow"> 请选择 </text>
+  </view>
+  <view class="reason2">
+    <text>退款金额</text>
+    <text class="price">¥{{totalMoney}}</text>
+  </view>
+  <view class="reason3">
+    <text>退款说明</text> 
+  </view>
+  <view class="Pic">
+    <view class="PicBlock" wx:if="{{imgPath2!=''}}">
+      <image src="{{imgPath2}}"></image>
+      <view class="del" data-id="0" bindtap="del">
+        <text class="iconfont icon-del"></text>
+      </view>
+    </view> 
+    <view class="PicBlock" wx:if="{{imgPath3!=''}}">
+      <image src="{{imgPath3}}"></image>
+      <view class="del" data-id="1" bindtap="del">
+        <text class="iconfont icon-del"></text>
+      </view>
+    </view>     
+    <view class="PicBlock" bindtap="choosePic">
+      <image src="{{imgPath}}"></image>
+      <view class="del" data-id="2" wx:if="{{imgPath!='../../img/pic.png'}}" catchtap="del">
+        <text class="iconfont icon-del"></text>
+      </view>
+    </view> 
+    <view class="small">(最多晒3张图片)</view>
+  </view>
+  <textarea class="userReason" placeholder="请填写退款说明，退款处理更快捷"/>
+  <view class="submit" bindtap="toSubmit">提交</view>
+</view>
+
+<view class="chooseReason" wx:if="{{show}}">
+  <view>
+    <view class="reasonList" data-id="1" bindtap="chooseReason">
+      <view class="{{flag=='1'?'iconfont icon-true':'quan'}}"></view>
+      <text>商家少送商品</text>
+    </view>
+    <view class="reasonList"  data-id="2" bindtap="chooseReason">
+      <view class="{{flag=='2'?'iconfont icon-true':'quan'}}"></view>
+      <text>商家错送商品</text>
+    </view>
+    <view class="reasonList"  data-id="3" bindtap="chooseReason">
+      <view class="{{flag=='3'?'iconfont icon-true':'quan'}}"></view>
+      <text>商品质量有问题</text>
+    </view>
+    <view class="reasonList"  data-id="4" bindtap="chooseReason">
+      <view class="{{flag=='4'?'iconfont icon-true':'quan'}}"></view>
+      <text>送太慢，不想要了</text>
+    </view>
+    <view class="reasonList"  data-id="5" bindtap="chooseReason">
+      <view class="{{flag=='5'?'iconfont icon-true':'quan'}}"></view>
+      <text>骑手通知我无法配送</text>
+    </view>
+    <view class="reasonList"  data-id="6" bindtap="chooseReason">
+      <view class="{{flag=='6'?'iconfont icon-true':'quan'}}"></view>
+      <text>其他</text>
+    </view>
+  </view>
+</view>
+

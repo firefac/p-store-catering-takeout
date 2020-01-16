@@ -1,0 +1,23 @@
+<!--order.wxml  -->
+<wxs module="dateUtil" src="../../utils/timeUtil.wxs"></wxs>
+
+<view class="container page3">
+  <view class="allOrder">
+    <view wx:for="{{orderList}}" wx:key="id">
+      <navigator class="allTitle" url="../orderDetail/orderDetail?id={{item.id}}" >
+        <text>{{dateUtil.dateFormat(item.createTime)}}</text>
+        <text class="iconfont icon-more">{{item.orderStatusText}}</text>
+      </navigator>
+      <view class="allMessage" >
+        <view class="allType" wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="gitem">
+          <text class="order_name">{{gitem.goodsName}}</text><text>X{{gitem.number}}</text><text class="price">¥{{gitem.price}}</text>
+        </view>
+        <view class="allType">
+          <view>
+            实付：<text class="price">{{item.actualPrice}}元</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

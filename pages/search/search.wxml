@@ -1,0 +1,26 @@
+<view class="top">
+  <input placeholder="搜索您喜欢的商品名称" class="search" />
+  <text class="searchbtn">搜索</text>
+</view>
+
+<!-- <view class="result">
+  为您搜索到的结果
+</view> -->
+
+
+<block wx:for="{{arr3}}" wx:key="">
+  <view class="menuList menuList2" bindtap="toFoodDetail">
+    <image src="{{item.img}}"></image>
+    <view class="P_message">
+      <view>{{item.name}}</view>
+      <view class="P_small">{{item.message}}</view>
+      <view class="P_small" catchtap="donothing">{{item.message2}}</view>
+      <view class="P_bottom" catchtap="donothing">
+        <view>
+          <text class="price">¥{{item.price}} </text>
+          <text class="line_t">¥{{item.price}}</text> 
+        </view>
+      </view> 
+    </view>
+  </view>
+</block>

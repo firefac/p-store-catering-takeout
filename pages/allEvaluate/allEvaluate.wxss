@@ -1,0 +1,42 @@
+page {
+  background: #f2f2f2;
+}
+.sayList {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20rpx 40rpx;
+  border-top: 2rpx #ddd solid;
+  background: white;
+}
+.sayList:last-child {
+  margin-bottom: 120rpx;
+}
+.sayLeft {
+  display: flex;
+}
+.sayLeft image {
+  margin-top: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+.Name view {
+  line-height: 60rpx;
+}
+.Name .name {
+  color: #999;
+}
+.time {
+  font-size: 28rpx;
+  padding-top: 10rpx;
+  color: #999;
+}
+.Pic image {
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: 0;
+  border-radius: 0;
+}
