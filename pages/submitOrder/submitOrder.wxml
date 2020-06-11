@@ -1,5 +1,14 @@
+<wxs module="dateUtil" src="../../utils/timeUtil.wxs"></wxs>
+
 <view class="container">
-  <view class="address-box">
+  <view class="recieve-type-box">
+    <radio-group class="radio-group" bindchange="changeReceiveType">
+      <radio class="radio" value="0" checked="{{receiveType == 0}}">配送上门</radio>
+      <radio class="radio" value="1" checked="{{receiveType == 1}}">到店自取</radio>
+    </radio-group>
+  </view>
+
+  <view class="address-box" wx:if="{{receiveType == 0}}">
     <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.id > 0}}">
       <view class="l">
         <text class="name">{{checkedAddress.name}}</text>
@@ -17,6 +26,72 @@
       <view class="m">
         还没有收货地址，去添加
       </view>
+      <view class="r">
+        <image src="/static/images/address_right.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="address-box" wx:if="{{receiveType == 1}}">
+    <view class="address-item" bindtap="selectLadingPoint" wx:if="{{ladingPoint != null}}">
+      <view class="l">
+        <text class="name">{{ladingPoint.name}}</text>
+      </view>
+      <view class="m">
+        <text class="mobile">{{ladingPoint.mobile}}</text>
+        <text class="address">{{ladingPoint.region}}{{ladingPoint.address}}</text>
+      </view>
+      <view class="r">
+        <image src="/static/images/address_right.png"></image>
+      </view>
+    </view>
+    <view class="address-item address-empty" bindtap="selectLadingPoint" wx:else>
+      <view class="m">
+        请选择提货点
+      </view>
+      <view class="r">
+        <image src="/static/images/address_right.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="lading-box" wx:if="{{receiveType == 1}}">
+    <view class="lading-item" bindtap="selectLadingTime">
+      <view class="l" wx:if="{{ladingTime == null}}">
+        <text class="name">请选提货时间</text>
+      </view>
+      <view class="l" wx:else>
+        <text class="name">{{ dateUtil.dateFormat(ladingTime) }}</text>
+      </view>  
+      <view class="r">
+        <image src="/static/images/address_right.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <van-popup
+    show="{{ ladingTimeShow }}"
+    position="bottom"
+    custom-style="height: 60%;"
+    bind:close="onCloseLadingTime"
+  >
+    <van-datetime-picker
+      type="datetime"
+      value="{{ ladingTime }}"
+      min-date="{{ minDate }}"
+      max-date="{{ maxDate }}"
+      bind:cancel="onCloseLadingTime"
+      bind:confirm="onInputLadingTime"
+    />
+  </van-popup>
+  <view class="lading-box" wx:if="{{receiveType == 1}}">
+    <view class="lading-item" bindtap="selectAddress">
+      <view class="l" wx:if="{{checkedAddress.id == 0}}">
+        <text class="name">请选择联系人</text>
+      </view>
+      <view class="l" wx:else>
+        <text class="name">{{checkedAddress.name}}</text>
+        <text class="mobile">{{checkedAddress.tel}}</text>
+      </view>  
       <view class="r">
         <image src="/static/images/address_right.png"></image>
       </view>

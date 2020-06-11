@@ -1,0 +1,22 @@
+<view class="container">
+  <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" 
+    markers="{{markers}}"
+    show-location
+    style="width: 100%; height: 400rpx;"></map>
+  <view class="address-list">
+    <view class="{{item.checked ? 'item-checked' : 'item'}}" wx:for="{{ladingPoints}}" wx:key="id" bindtap="checkLadingPoint" data-lading-point="{{item}}">
+      <view class="l">
+        <view class="name">{{item.name}}</view>
+      </view>
+      <view class="c">
+        <view class="mobile">{{item.mobile}}</view>
+        <view class="address">{{item.region}}{{item.address}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="empty-view" wx:if="{{ ladingPoints.length <= 0 }}">
+    <image class="icon" src="http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noAddress-26d570cefa.png"></image>
+    <text class="text">无可用提货点</text>
+  </view>
+  <view class="add-address" bindtap="confirm" data-address-id="0">确定</view>
+</view>

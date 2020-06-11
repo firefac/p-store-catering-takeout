@@ -1,0 +1,100 @@
+<wxs module="dateUtil" src="../../../utils/timeUtil.wxs"></wxs>
+
+<view class="container">
+  <view class="order-info">
+    <view class="info">
+      <view class="item-a">预定时间：{{dateUtil.dateFormat(orderInfo.createTime)}}</view>
+      <view class="item-b">订单编号：{{orderInfo.orderSn}}</view>
+    </view>
+    <view class="qr-code">
+      <van-icon bindtap="showQr" size="45px" name="qr" />
+    </view>
+  </view>
+  <van-popup show="{{ qrShow }}" bind:close="onQrClose">
+    <image class="qr-file" src="{{ qrFile }}"/>
+  </van-popup>
+
+  <view class="lading-info" wx:if="{{orderInfo.receiveType == 1}}">
+    <view class="h">
+      <view class="label">取货信息</view>
+      <view class="status">取货时间:{{dateUtil.dateFormat(orderInfo.ladingTime, "MM月dd日 hh:mm:ss")}}</view>
+    </view>
+    <view class="info">
+      <view class="t">
+        <text class="name">{{orderInfo.ladingPoint.name}}</text>
+      </view>
+      <view class="t" bindtap="call">
+        <van-icon name="phone" />
+        <text class="name">{{orderInfo.ladingPoint.mobile}}</text>
+      </view>
+      <view class="t" bindtap="showMap">
+        <van-icon name="location"/>
+        <text class="name">{{orderInfo.ladingPoint.region}}</text>
+        <text class="name">{{orderInfo.ladingPoint.address}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-goods">
+    <view class="h">
+      <view class="label">商品信息</view>
+      <view class="status">{{orderInfo.orderStatusText}}</view>
+    </view>
+    <view class="goods">
+      <view class="item" wx:for="{{orderGoods}}" wx:key="id">
+        <view class="img">
+          <image src="{{item.picUrl}}" mode="aspectFill"></image>
+        </view>
+        <view class="info">
+          <view class="t">
+            <text class="name">{{item.goodsName}}</text>
+            <text class="number">x{{item.number}}</text>
+          </view>
+          <view class="attr">{{item.specificationList}}</view>
+          <view class="price">￥{{item.price}}</view>\
+        </view>
+      </view>
+    </view>
+
+    <view class="order-bottom">
+      <view class="address">
+        <view class="t" bindtap="callUser">
+          <text class="name">{{orderInfo.consignee}}</text>
+          <van-icon name="phone" />
+          <text class="mobile">
+            {{orderInfo.mobile}}
+          </text>
+        </view>
+        <view class="b">{{orderInfo.address}}</view>
+      </view>
+      <view class="total">
+        <view class="t">
+          <text class="label">商品合计：</text>
+          <text class="txt">￥{{orderInfo.goodsPrice}}</text>
+        </view>
+        <view class="t">
+          <text class="label">运费：</text>
+          <text class="txt">￥{{orderInfo.freightPrice}}</text>
+        </view>
+        <view class="t" wx:if="{{orderInfo.couponPrice > 0}}">
+          <text class="label">优惠：</text>
+          <text class="txt">￥-{{orderInfo.couponPrice}}</text>
+        </view>
+      </view>
+      <view class="pay-fee">
+        <text class="label">实付：</text>
+        <text class="txt">￥{{orderInfo.actualPrice}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="item-c">
+    <view class="l">实付：
+      <text class="cost">￥{{orderInfo.actualPrice}}</text>
+    </view>
+    <view class="r">
+      <view class="btn active" bindtap="cancelOrder" wx:if="{{handleOption.cancel}}">取消订单</view>
+      <view class="btn active" bindtap="confirmOrder" wx:if="{{handleOption.confirm}}">确认收货</view>
+    </view>
+  </view>
+</view>

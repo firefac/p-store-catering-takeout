@@ -11,11 +11,14 @@
 
  <view style="margin-top: 30rpx;"/>
 
+  <van-cell wx:if="{{adminPermission}}" is-link icon="scan" title="订单扫码（管理员）" bindtap="scanQrCode"/>
+  <van-cell wx:if="{{adminPermission}}" is-link icon="orders-o" title="订单查看（管理员）" bindtap="goAdminOrder"/>
   <van-cell  is-link icon="location-o" title="地址管理" link-type="navigateTo" url="/pages/ucenter/address/address" />
   <!--<van-cell  is-link icon="coupon-o" title="我的红包" link-type="navigateTo" url="/pages/myPackage/myPackage" />-->
   <van-cell  is-link icon="service-o" title="联系客服" link-type="navigateTo"  >
       <button style="opacity:0;position:absolute;; width:100%;height:100%;left:0px;" open-type='contact'></button> 
   </van-cell>
+  <van-cell  is-link icon="info-o" title="关于我们" link-type="navigateTo" url="/pages/about/about" />
 
   <view class="calling" bindtap="calling">
     订餐电话：<text class="phoneColor">{{storeInfo.mobile}}</text>

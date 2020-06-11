@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "所有订单列表",
+  "usingComponents": {
+    "van-icon": "../../../lib/icon/index"
+  }
+}

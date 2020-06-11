@@ -31,6 +31,8 @@ module.exports = {
   BrandList: WxApiRoot + 'brand/list', //品牌列表
   BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
 
+  SnsAboutDetail: WxApiRoot + 'sns/about/detail', // 关于我们
+
   CartList: WxApiRoot + 'cart/index', //获取购物车的数据
   CartAdd: WxApiRoot + 'cart/add', // 添加商品到购物车
   CartReduce: WxApiRoot + 'cart/reduce', // 添加商品到购物车
@@ -75,6 +77,12 @@ module.exports = {
   OrderConfirm: WxApiRoot + 'order/confirm', //确认收货
   OrderGoods: WxApiRoot + 'order/goods', // 代评价商品信息
   OrderComment: WxApiRoot + 'order/comment', // 评价订单商品信息
+  OrderGeneralQr: WxApiRoot + 'order/general/qr',
+  OrderLadingList: WxApiRoot + 'order/ladings',
+  OrderAdminList: WxApiRoot + 'order/admin/list', //订单列表
+  OrderAdminDetail: WxApiRoot + 'order/admin/detail', //订单详情
+  OrderAdminCancel: WxApiRoot + 'order/admin/cancel', //取消订单
+  OrderAdminConfirm: WxApiRoot + 'order/admin/confirm', //确认收货
 
   FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈
   FootprintList: WxApiRoot + 'footprint/list', //足迹列表

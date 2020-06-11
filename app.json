@@ -20,11 +20,15 @@
     "pages/editAddress/editAddress",
     "pages/address/address",
     "pages/submitOrder/submitOrder",
+    "pages/ladingPoint/ladingPoint",
     "pages/evaluate/evaluate",
     "pages/allEvaluate/allEvaluate",
     "pages/myPackage/myPackage",
     "pages/cart/cart",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/about/about",
+    "pages/admin/order/order",
+    "pages/admin/orderDetail/orderDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -70,8 +74,5 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于计算外卖配送范围及运费"
     }
-  },
-  "navigateToMiniProgramAppIdList": [
-    "wx6885acbedba59c14"
-  ]
+  }
 }

@@ -2,8 +2,37 @@
 
 <view class="container">
   <view class="order-info">
-    <view class="item-a">下单时间：{{dateUtil.dateFormat(orderInfo.createTime)}}</view>
-    <view class="item-b">订单编号：{{orderInfo.orderSn}}</view>
+    <view class="info">
+      <view class="item-a">预定时间：{{dateUtil.dateFormat(orderInfo.createTime)}}</view>
+      <view class="item-b">订单编号：{{orderInfo.orderSn}}</view>
+    </view>
+    <view class="qr-code">
+      <van-icon bindtap="showQr" size="45px" name="qr" />
+    </view>
+  </view>
+  <van-popup show="{{ qrShow }}" bind:close="onQrClose">
+    <image class="qr-file" src="{{ qrFile }}"/>
+  </van-popup>
+
+  <view class="lading-info" wx:if="{{orderInfo.receiveType == 1}}">
+    <view class="h">
+      <view class="label">取货信息</view>
+      <view class="status">取货时间:{{dateUtil.dateFormat(orderInfo.ladingTime, "MM月dd日 hh:mm:ss")}}</view>
+    </view>
+    <view class="info">
+      <view class="t">
+        <text class="name">{{orderInfo.ladingPoint.name}}</text>
+      </view>
+      <view class="t" bindtap="call">
+        <van-icon name="phone" />
+        <text class="name">{{orderInfo.ladingPoint.mobile}}</text>
+      </view>
+      <view class="t" bindtap="showMap">
+        <van-icon name="location"/>
+        <text class="name">{{orderInfo.ladingPoint.region}}</text>
+        <text class="name">{{orderInfo.ladingPoint.address}}</text>
+      </view>
+    </view>
   </view>
 
   <view class="order-goods">
@@ -23,6 +52,12 @@
           </view>
           <view class="attr">{{item.specificationList}}</view>
           <view class="price">￥{{item.price}}</view>
+          <view class="btn active" wx:if="{{handleOption.comment && (item.comment == 0)}}">
+            <navigator url="../../commentPost/commentPost?orderId={{item.orderId}}&&valueId={{item.goodsId}}&type=0">去评价</navigator>
+          </view>
+          <view class="btn active" wx:if="{{handleOption.rebuy}}">
+            <navigator url="../../goods/goods?id={{item.goodsId}}">再次预定</navigator>
+          </view>
         </view>
       </view>
     </view>
@@ -56,27 +91,14 @@
     </view>
   </view>
 
-  <!-- 物流信息,发货后可见 -->
-  <view class="order-express" bindtap="jumpToKuaidi100" wx:if="{{ orderInfo.expNo != null && (handleOption.confirm || handleOption.comment) }}">
-    <view class="order-express">
-      <view class="title">
-        <view class="t">快递公司：{{orderInfo.expCom}}</view>
-        <view class="b">物流单号：{{orderInfo.expNo}}</view>
-      </view>
-      <image class="ti" src="/static/images/address_right.png" background-size="cover"></image>
-    </view>
-  </view>
-
   <view class="item-c">
     <view class="l">实付：
       <text class="cost">￥{{orderInfo.actualPrice}}</text>
     </view>
     <view class="r">
       <view class="btn active" bindtap="cancelOrder" wx:if="{{handleOption.cancel}}">取消订单</view>
-      <view class="btn active" bindtap="payOrder" wx:if="{{handleOption.pay}}">去付款</view>
       <view class="btn active" bindtap="confirmOrder" wx:if="{{handleOption.confirm}}">确认收货</view>
       <view class="btn active" bindtap="deleteOrder" wx:if="{{handleOption.delete}}">删除订单</view>
-      <view class="btn active" bindtap="refundOrder" wx:if="{{handleOption.refund}}">申请退款</view>
     </view>
   </view>
 </view>

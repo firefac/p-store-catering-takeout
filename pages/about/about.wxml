@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="banner" wx:if="{{about.coverUrl != null}}">
+    <image src="{{about.coverUrl}}" mode="widthFix"></image>
+  </view>
+
+  <view class="content">
+    <view class="title" wx:if="{{about.title != null}}">{{about.title}}</view>
+    <view class="sub-title" wx:if="{{about.subTitle != null}}">{{about.subTitle}}</view>
+
+    <scroll-view class="detail">
+      <import src="../../lib/wxParse/wxParse.wxml" />
+      <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
+    </scroll-view>
+  </view>
+</view>

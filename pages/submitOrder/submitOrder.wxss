@@ -10,9 +10,7 @@ page {
 .address-box {
   width: 100%;
   height: 166.55rpx;
-  background: url('http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/address-bg-bd30f2bfeb.png') 0 0 repeat-x;
   background-size: 62.5rpx 10.5rpx;
-  margin-bottom: 20rpx;
   padding-top: 10.5rpx;
 }
 
@@ -26,6 +24,19 @@ page {
 .address-item.address-empty {
   line-height: 75rpx;
   text-align: center;
+}
+
+.recieve-type-box radio{
+  margin-right: 30rpx;
+}
+
+.recieve-type-box{
+  width: 100%;
+  height: 120rpx;
+  background-size: 62.5rpx 10.5rpx;
+  padding: 40rpx 30rpx;
+  background: #fff;
+  margin-bottom: 30rpx;
 }
 
 .address-box .l {
@@ -93,6 +104,57 @@ page {
   width: 52.078rpx;
   height: 52.078rpx;
 }
+
+.lading-box {
+  margin-top: 20rpx;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+}
+
+.lading-box .lading-item {
+  width: 100%;
+  height: 108.3rpx;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  padding-left: 31.25rpx;
+}
+
+.lading-box .l {
+  flex: 1;
+  height: 43rpx;
+  line-height: 43rpx;
+  padding-top: 35rpx;
+}
+
+.lading-box .l .name {
+  float: left;
+  font-size: 30rpx;
+  color: #666;
+}
+
+.lading-box .l .mobile {
+  margin-left: 20rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+
+.lading-box .r {
+  margin-top: 15.5rpx;
+  width: 77rpx;
+  height: 77rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lading-box .r image {
+  width: 52.078rpx;
+  height: 52.078rpx;
+}
+
 .address,.time,.restaurant {
   padding: 20rpx 0;
   display: flex;

@@ -23,7 +23,15 @@ Page({
 
     block: false,
     restaurant: false,
-    check: true
+    check: true,
+    ladingPointId: 0,
+    ladingPoint: {},
+    ladingTime: null,
+    ladingTimeShow: false,
+    minDate: new Date().getTime(),
+    maxDate: new Date().getTime() + 14 * 24 * 60 * 60 * 1000,
+    ladingPoints: [],
+    receiveType: 0
   },
 
 
@@ -34,9 +42,14 @@ Page({
       cartId: that.data.cartId,
       addressId: that.data.addressId,
       couponId: that.data.couponId,
+      ladingPointId: that.data.ladingPointId,
       grouponRulesId: that.data.grouponRulesId
     }, "POST").then(function(res) {
       if (res.errcode === '0') {
+        var ladingPointId = 0
+        if(res.data.ladingPoint != null){
+          ladingPointId = res.data.ladingPoint.id
+        }
         that.setData({
           checkedGoodsList: res.data.checkedGoodsList,
           checkedAddress: res.data.checkedAddress,
@@ -50,6 +63,8 @@ Page({
           addressId: res.data.addressId,
           couponId: res.data.couponId,
           grouponRulesId: res.data.grouponRulesId,
+          ladingPoint: res.data.ladingPoint,
+          ladingPointId: ladingPointId
         });
       }else{
         wx.navigateBack({
@@ -110,12 +125,18 @@ Page({
         grouponLinkId = 0;
       }
 
+      var ladingPointId = wx.getStorageSync('ladingPointId');
+      if (ladingPointId === "") {
+        ladingPointId = 0;
+      }
+
       this.setData({
         cartId: cartId,
         addressId: addressId,
         couponId: couponId,
         grouponRulesId: grouponRulesId,
-        grouponLinkId: grouponLinkId
+        grouponLinkId: grouponLinkId,
+        ladingPointId: ladingPointId
       });
 
     } catch (e) {
@@ -133,6 +154,28 @@ Page({
     // 页面关闭
 
   },
+  selectLadingPoint() {
+    wx.navigateTo({
+      url: '/pages/ladingPoint/ladingPoint',
+    })
+  },
+  selectLadingTime() {
+    this.setData({ ladingTimeShow: true });
+  },
+  onCloseLadingTime() {
+    this.setData({ ladingTimeShow: false });
+  },
+  onInputLadingTime(event) {
+    this.setData({
+      ladingTime: event.detail,
+      ladingTimeShow: false
+    });
+  },
+  changeReceiveType: function(e) {
+    this.setData({
+      receiveType: e.detail.value
+    })
+  },
   submitOrder: function() {
     if (this.data.addressId <= 0) {
       util.showErrorToast('请选择收货地址');
@@ -142,6 +185,10 @@ Page({
       cartId: this.data.cartId,
       addressId: this.data.addressId,
       couponId: this.data.couponId,
+      receiveType: this.data.receiveType,
+      payType: 0,
+      ladingId: this.data.ladingPointId,
+      ladingTime: this.data.ladingTime,
       message: this.data.message,
       grouponRulesId: this.data.grouponRulesId,
       grouponLinkId: this.data.grouponLinkId

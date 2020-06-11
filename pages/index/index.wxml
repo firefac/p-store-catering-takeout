@@ -65,8 +65,9 @@
         <view class="S_title">
           商家信息
         </view>
-        <view class="iconfont icon-map">{{storeInfo.address}}</view>
+        <view class="iconfont icon-map" bindtap="showMap">{{storeInfo.address}}</view>
         <view class="iconfont icon-time2">配送时间：{{storeInfo.deliveryStartTime}}-{{storeInfo.deliveryEndTime}}</view>
+        <view class="iconfont icon-time2">营业时间：{{storeInfo.openStartTime}}-{{storeInfo.openEndTime}}</view>
         <view class="iconfont icon-car">商家提供配送服务</view>
         <view class="iconfont icon-money">¥{{storeInfo.deliveryStartFee}}元起送｜配送费¥{{storeInfo.deliveryFee}}</view>
       </view>

@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "提交订单"
+  "navigationBarTitleText": "提交订单",
+  "usingComponents": {
+    "van-popup": "../../lib/popup/index",
+    "van-datetime-picker": "../../lib/datetime-picker/index"
+  }
 }

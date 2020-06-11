@@ -87,8 +87,34 @@ function checkLogin() {
     }
   });
 }
+/**
+ * 判断用户是否登录
+ */
+function checkLoginSync() {
+  if (wx.getStorageSync('userInfo') && wx.getStorageSync('token')) {
+    return true
+  } 
+  return false
+}
+/**
+ * 判断用户是否是管理员
+ */
+function checkPermission() {
+  var userInfo = wx.getStorageSync('userInfo')
 
+  if(userInfo == null){
+    return false
+  }
+
+  if(userInfo.authType == 1){
+    return true
+  }
+
+  return false
+}
 module.exports = {
   loginByWeixin,
   checkLogin,
+  checkPermission,
+  checkLoginSync
 };

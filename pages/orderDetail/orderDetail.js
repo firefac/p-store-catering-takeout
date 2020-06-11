@@ -8,7 +8,9 @@ Page({
     orderGoods: [],
     expressInfo: {},
     flag: false,
-    handleOption: {}
+    handleOption: {},
+    qrFile: undefined,
+    qrShow: false
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -44,6 +46,7 @@ Page({
     }).then(function(res) {
       if (res.errcode === '0') {
         console.log(res.data);
+
         that.setData({
           orderInfo: res.data.orderInfo,
           orderGoods: res.data.orderGoods,
@@ -55,38 +58,10 @@ Page({
       wx.hideLoading();
     });
   },
-  // “去付款”按钮点击效果
-  payOrder: function() {
-    let that = this;
-    util.request(api.OrderPrepay, {
-      orderId: that.data.orderId
-    }, 'POST').then(function(res) {
-      if (res.errcode === '0') {
-        const payParam = res.data;
-        console.log("支付过程开始");
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp,
-          'nonceStr': payParam.nonceStr,
-          'package': payParam.packageValue,
-          'signType': payParam.signType,
-          'paySign': payParam.paySign,
-          'success': function(res) {
-            console.log("支付过程成功");
-            wx.switchTab({
-              url: '/pages/ucenter/order/order'
-            });
-          },
-          'fail': function(res) {
-            console.log("支付过程失败");
-            util.showErrorToast('支付失败');
-          },
-          'complete': function(res) {
-            console.log("支付过程结束")
-          }
-        });
-      }
-    });
-
+  call: function(){
+    wx.makePhoneCall({
+      phoneNumber: this.data.orderInfo.ladingPoint.mobile //仅为示例，并非真实的电话号码
+    })
   },
   // “取消订单”点击效果
   cancelOrder: function() {
@@ -105,37 +80,7 @@ Page({
               wx.showToast({
                 title: '取消订单成功'
               });
-              wx.switchTab({
-                url: '/pages/ucenter/order/order'
-              });
-            } else {
-              util.showErrorToast(res.errmsg);
-            }
-          });
-        }
-      }
-    });
-  },
-  // “取消订单并退款”点击效果
-  refundOrder: function() {
-    let that = this;
-    let orderInfo = that.data.orderInfo;
-
-    wx.showModal({
-      title: '',
-      content: '确定要取消此订单？',
-      success: function(res) {
-        if (res.confirm) {
-          util.request(api.OrderRefund, {
-            orderId: orderInfo.id
-          }, 'POST').then(function(res) {
-            if (res.errcode === '0') {
-              wx.showToast({
-                title: '取消订单成功'
-              });
-              wx.switchTab({
-                url: '/pages/ucenter/order/order'
-              });
+              that.getOrderDetail();
             } else {
               util.showErrorToast(res.errmsg);
             }
@@ -189,9 +134,7 @@ Page({
               wx.showToast({
                 title: '确认收货成功！'
               });
-              wx.switchTab({
-                url: '/pages/ucenter/order/order'
-              });
+              that.getOrderDetail();
             } else {
               util.showErrorToast(res.errmsg);
             }
@@ -200,13 +143,35 @@ Page({
       }
     });
   },
-  jumpToKuaidi100: function(){
-    wx.navigateToMiniProgram({
-      appId: "wx6885acbedba59c14",
-      path: 'pages/result/result?nu=' + this.data.orderInfo.expNo + '&com=&querysource=third_xcx',
-      success(res) {
-        // 打开成功
-      }
+  showQr: function(){
+    let that = this
+    if(this.data.qrFile == null){
+      wx.downloadFile({
+        url: api.OrderGeneralQr + '?orderId=' + this.data.orderId, //仅为示例，并非真实的资源
+        header: {
+          "X-TOKEN":  wx.getStorageSync('token')
+        },
+        success (res) {
+          // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+          if (res.statusCode === 200) {
+            that.setData({
+              qrFile: res.tempFilePath
+            })
+          }
+        }
+      })
+    }
+    this.setData({ qrShow: true });
+  },
+  onQrClose() {
+    this.setData({ qrShow: false });
+  },
+  showMap() {
+    wx.openLocation({
+      latitude: this.data.orderInfo.ladingPoint.lat,
+      longitude: this.data.orderInfo.ladingPoint.lng,
+      name: this.data.orderInfo.ladingPoint.name,
+      address: this.data.orderInfo.ladingPoint.region + this.data.orderInfo.ladingPoint.address,
     })
   },
   onReady: function() {

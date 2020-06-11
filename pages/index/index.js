@@ -524,8 +524,14 @@ Page({
       }
     });
   },
-
-
+  showMap() {
+    wx.openLocation({
+      latitude: this.data.storeInfo.lat,
+      longitude: this.data.storeInfo.lng,
+      name: this.data.storeInfo.name,
+      address: this.data.storeInfo.address,
+    })
+  },
   //事件处理函数
 	onGoodsScroll: function (e) {
 		if (e.detail.scrollTop > 10 && !this.data.scrollDown) {

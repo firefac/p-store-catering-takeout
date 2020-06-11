@@ -10,14 +10,9 @@ Page({
       nickName: '点击登录',
       avatarUrl: 'http://yanxuan.nosdn.127.net/8945ae63d940cc42406c3f67019c5cb6.png'
     },
-    order: {
-      unpaid: 0,
-      unship: 0,
-      unrecv: 0,
-      uncomment: 0
-    },
     storeInfo: {},
-    hasLogin: false
+    hasLogin: false,
+    adminPermission: false
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -37,15 +32,15 @@ Page({
         userInfo: userInfo,
         hasLogin: true
       });
-
-      let that = this;
-      util.request(api.UserIndex).then(function(res) {
-        if (res.errcode === '0') {
-          that.setData({
-            order: res.data.order
-          });
-        }
-      });
+      
+      var adminPermission = false
+      if (user.checkLoginSync()) {
+        adminPermission = user.checkPermission()
+      }
+  
+      this.setData({
+        adminPermission: adminPermission
+      })
     }
 
   },
@@ -55,6 +50,66 @@ Page({
   },
   onUnload: function() {
     // 页面关闭
+  },
+  goAdminOrder: function(){
+    if (app.globalData.hasLogin) {
+      if(!user.checkPermission()){
+        wx.showModal({
+          title: '权限',
+          content: '没有权限操作',
+          success: function(res) {
+          }
+        })
+        return
+      }
+    }else{
+      wx.navigateTo({
+        url: "/pages/auth/login/login"
+      })
+      return
+    }
+
+    wx.navigateTo({
+      url: "/pages/admin/order/order"
+    })
+  },
+  scanQrCode: function(){
+    if (app.globalData.hasLogin) {
+      if(!user.checkPermission()){
+        wx.showModal({
+          title: '权限',
+          content: '没有权限操作',
+          success: function(res) {
+          }
+        })
+        return
+      }
+    }else{
+      wx.navigateTo({
+        url: "/pages/auth/login/login"
+      })
+      return
+    }
+
+    wx.scanCode({
+      success (res) {
+        var result = res.result
+        if(result == ''){
+          return
+        }
+
+        var reg = RegExp(/order:.*/);
+        console.info(result)
+        console.info(result.match(reg))
+        console.info(result.substring(6, result.length))
+
+        if(result.match(reg)){
+          wx.navigateTo({
+            url: "/pages/admin/orderDetail/orderDetail?orderSn=" + result.substring(6, result.length)
+          })
+        }
+      }
+    })
   },
   goLogin() {
     if (!this.data.hasLogin) {

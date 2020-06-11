@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "扫码订单详情",
+  "usingComponents": {
+    "van-icon": "../../../lib/icon/index",
+    "van-steps": "../../../lib/steps/index",
+    "van-popup": "../../../lib/popup/index"
+  }
+}
