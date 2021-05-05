@@ -1,6 +1,10 @@
 var api = require('../config/api.js');
 var app = getApp();
 
+
+var lastRequestTime = undefined
+var gapTime = 1000
+
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -44,10 +48,17 @@ function request(url, data = {}, method = "GET") {
             } catch (e) {
               // Do something when catch error
             }
-            // 切换到登录页面
-            wx.navigateTo({
-              url: '/pages/auth/login/login'
-            });
+            let _nowTime = new Date()
+            if (_nowTime - lastRequestTime > gapTime || !lastRequestTime) {
+                console.info('redirect to login page')
+                // 切换到登录页面
+                wx.navigateTo({
+                  url: '/pages/auth/login/login'
+                });
+
+                lastRequestTime = _nowTime
+            }
+            
             reject(res.errMsg);
           } else {
             resolve(res.data);

@@ -3,7 +3,7 @@
 <view class="container">
   <view class="order-info">
     <view class="info">
-      <view class="item-a">预定时间：{{dateUtil.dateFormat(orderInfo.createTime)}}</view>
+      <view class="item-a">下单时间：{{dateUtil.dateFormat(orderInfo.createTime)}}</view>
       <view class="item-b">订单编号：{{orderInfo.orderSn}}</view>
     </view>
     <view class="qr-code">

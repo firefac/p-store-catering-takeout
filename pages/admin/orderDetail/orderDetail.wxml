@@ -51,7 +51,13 @@
             <text class="number">x{{item.number}}</text>
           </view>
           <view class="attr">{{item.specificationList}}</view>
-          <view class="price">￥{{item.price}}</view>\
+          <view class="price">￥{{item.price}}</view>
+          <view class="btn active" wx:if="{{handleOption.comment && (item.comment == 0)}}">
+            <navigator url="../../commentPost/commentPost?orderId={{item.orderId}}&&valueId={{item.goodsId}}&type=0">去评价</navigator>
+          </view>
+          <view class="btn active" wx:if="{{handleOption.rebuy}}">
+            <navigator url="../../goods/goods?id={{item.goodsId}}">再次预定</navigator>
+          </view>
         </view>
       </view>
     </view>
@@ -88,13 +94,46 @@
     </view>
   </view>
 
+  <!-- 物流信息,发货后可见 -->
+  <view class="order-express" bindtap="jumpToKuaidi100" wx:if="{{ orderInfo.expNo != null && (handleOption.confirm || handleOption.comment) }}">
+    <view class="order-express">
+      <view class="title">
+        <view class="t">快递公司：{{orderInfo.expCom}}</view>
+        <view class="b">物流单号：{{orderInfo.expNo}}</view>
+      </view>
+      <image class="ti" src="/static/images/address_right.png" background-size="cover"></image>
+    </view>
+  </view>
+
   <view class="item-c">
     <view class="l">实付：
       <text class="cost">￥{{orderInfo.actualPrice}}</text>
     </view>
     <view class="r">
+      <view class="btn active" bindtap="copyOrderInfo">拷贝订单</view>
       <view class="btn active" bindtap="cancelOrder" wx:if="{{handleOption.cancel}}">取消订单</view>
       <view class="btn active" bindtap="confirmOrder" wx:if="{{handleOption.confirm}}">确认收货</view>
+      <view class="btn active" bindtap="showShipDialog" wx:if="{{handleOption.ship}}">订单发货</view>
     </view>
   </view>
+
+  <van-popup show="{{ shipShow }}" bind:close="onShipClose">
+    <view style="width: 600rpx; height: 300rpx;">
+      <view style="padding: 10px 16px; display:flex;">
+        <text style="text-algin:center;width:90px;">物流公司</text>
+        <picker bindchange="bindExpressChange" value="{{expressIndex}}" range="{{expresses}}">
+            <view>{{expresses[expressIndex]}}</view>
+        </picker>
+      </view>
+      <van-field
+        label="物流单号"
+        value="{{ expressSn }}"
+        placeholder="请输入物流单号"
+        border="{{ false }}"
+        bind:change="onExpressSnChange"
+      />
+      <van-button color="#b4282d" size="small" type="danger" bindtap="ship" block style="width:100%;position: absolute;bottom:0;">发货</van-button>
+    </view>
+  </van-popup>
+
 </view>

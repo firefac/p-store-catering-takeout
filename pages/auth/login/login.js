@@ -45,6 +45,45 @@ Page({
 
     });
   },
+  wxLogin2: function(e) {
+		let that = this
+		wx.getUserProfile({
+			desc:'用于信息的展示和推荐',
+		  success: function(res) {
+		    if (res.userInfo == undefined) {
+		      app.globalData.hasLogin = false;
+		      util.showErrorToast('微信登录失败');
+		      return;
+		    }
+		    
+		    if(user.checkLoginSync()){
+		      var pages = getCurrentPages();
+		      if(pages.length == 1){
+		        wx.switchTab({
+		          url: '/pages/index/index',
+		        })
+		        return
+		      }
+		    
+		      wx.navigateBack({
+		        delta: 1
+		      })
+		    }else{
+		      user.loginByWeixin(res.userInfo).then(res => {
+		        app.globalData.hasLogin = true;
+		    
+		        wx.navigateBack({
+		          delta: 1
+		        })
+		      }).catch((err) => {
+		        console.log(err);
+		        app.globalData.hasLogin = false;
+		        util.showErrorToast('微信登录失败');
+		      });
+		    }
+		  }
+		})
+  },
   accountLogin: function() {
     wx.navigateTo({
       url: "/pages/auth/accountLogin/accountLogin"

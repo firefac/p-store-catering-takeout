@@ -83,6 +83,8 @@ module.exports = {
   OrderAdminDetail: WxApiRoot + 'order/admin/detail', //订单详情
   OrderAdminCancel: WxApiRoot + 'order/admin/cancel', //取消订单
   OrderAdminConfirm: WxApiRoot + 'order/admin/confirm', //确认收货
+  OrderAdminShip: WxApiRoot + 'order/admin/ship', //确认收货
+  OrderAdminGeneralQr: WxApiRoot + 'order/admin/general/qr',
 
   FeedbackAdd: WxApiRoot + 'feedback/submit', //添加反馈
   FootprintList: WxApiRoot + 'footprint/list', //足迹列表

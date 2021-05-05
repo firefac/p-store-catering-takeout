@@ -9,7 +9,7 @@ Page({
     showType: 0,
     pageNum: 1,
     pageSize: 10,
-    lastPage: true,
+    lastPage: false,
     hasLogin: false
   },
   onLoad: function(options) {
@@ -64,7 +64,8 @@ Page({
       orderList: [],
       showType: showType,
       pageNum: 1,
-      pageSize: 10
+      pageSize: 10,
+      lastPage: false
     });
     this.getOrderList();
   },

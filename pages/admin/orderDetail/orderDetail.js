@@ -13,7 +13,29 @@ Page({
     flag: false,
     handleOption: {},
     qrFile: undefined,
-    qrShow: false
+    qrShow: false,
+    shipShow: false,
+    expressIndex: 0,
+    expressSn: '',
+    expresses: ["顺丰速运", "百世快递","中通快递","申通快递","圆通速递", "韵达速递", "邮政快递包裹", "EMS", "天天快递", "京东快递", "优速快递", "德邦快递", "宅急送"],
+    expressCodes: ["shunfeng", "huitongkuaidi","zhongtong",
+      "shentong","yuantong", "yunda", "youzhengguonei", 
+      "ems", "tiantian", "jd", "youshuwuliu", "debangwuliu", "zhaijisong"],
+    expressMap: {
+      'shunfeng': '顺丰速运',
+      'huitongkuaidi': '百世快递',
+      'zhongtong': '中通快递',
+      'shentong': '申通快递',
+      'yuantong': '圆通速递',
+      'yunda': '韵达速递',
+      'youzhengguonei': '邮政快递包裹',
+      'ems': 'EMS',
+      'tiantian': '天天快递',
+      'jd': '京东快递',
+      'youshuwuliu': '优速快递',
+      'debangwuliu': '德邦快递',
+      'zhaijisong': '宅急送'
+    }
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -149,7 +171,7 @@ Page({
     let that = this
     if(this.data.qrFile == null){
       wx.downloadFile({
-        url: api.OrderGeneralQr + '?orderId=' + this.data.orderId, //仅为示例，并非真实的资源
+        url: api.OrderAdminGeneralQr + '?orderId=' + this.data.orderId, //仅为示例，并非真实的资源
         header: {
           "X-TOKEN":  wx.getStorageSync('token')
         },
@@ -176,6 +198,52 @@ Page({
       address: this.data.orderInfo.ladingPoint.region + this.data.orderInfo.ladingPoint.address,
     })
   },
+  showShipDialog(){
+    this.setData({ shipShow: true });
+  },
+  onShipClose() {
+    this.setData({ shipShow: false });
+  },
+
+  bindExpressChange: function(e) {
+    this.setData({
+      expressIndex: e.detail.value
+    })
+  },
+  onExpressSnChange: function(e){
+    this.setData({
+      expressSn: e.detail
+    });
+  },
+  // “确认收货”点击效果
+  ship: function() {
+    let that = this;
+    let orderInfo = that.data.orderInfo;
+
+    wx.showModal({
+      title: '',
+      content: '确认发货？',
+      success: function(res) {
+        if (res.confirm) {
+          util.request(api.OrderAdminShip, {
+            orderId: orderInfo.id,
+            shipChannel: that.data.expressCodes[that.data.expressIndex],
+            shipSn: that.data.expressSn
+          }, 'POST').then(function(res) {
+            if (res.errcode === '0') {
+              wx.showToast({
+                title: '确认收货成功！'
+              });
+              that.getOrderDetail();
+              that.setData({ shipShow: false });
+            } else {
+              util.showErrorToast(res.errmsg);
+            }
+          });
+        }
+      }
+    });
+  },
   onReady: function() {
     // 页面渲染完成
   },
@@ -195,6 +263,42 @@ Page({
         return
       }
     }
+  },
+  jumpToKuaidi100: function(){
+    wx.navigateToMiniProgram({
+      appId: "wx6885acbedba59c14",
+      path: 'pages/result/result?nu=' + this.data.orderInfo.expNo + '&com=&querysource=third_xcx',
+      success(res) {
+        // 打开成功
+      }
+    })
+  },
+  /**
+   * 地址：河北省石家庄市新华区联盟街道北二环西路大郭东园B区6排3号（蓝天苑北邻）
+收件人：翁绍芳&崔亚欣
+电话：13833110266
+备注：1箱特级果
+   * 
+  */
+  copyOrderInfo: function(){
+    var info = ''
+    var orderInfo = this.data.orderInfo
+
+    info = info + '地址：' + orderInfo.address + '\n';
+    info = info + '收件人：' + orderInfo.consignee + '\n';
+    info = info + '电话：' + orderInfo.mobile + '\n';
+
+    var remark = ''
+    this.data.orderGoods.forEach((e, i)=>{
+      remark = remark + e.goodsName + '(' + e.specificationList + ') * ' + e.number + '\n'
+    })
+    info = info + '备注：' + remark;
+
+    wx.setClipboardData({
+      data: info,
+      success (res) {
+      }
+    })
   },
   onHide: function() {
     // 页面隐藏
